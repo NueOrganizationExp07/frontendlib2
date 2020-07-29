@@ -33,7 +33,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	//酒店修改组件
 	export default {
 		name:"HotelModify",
@@ -47,19 +47,19 @@
 			};
 		},
 		created(){ //组件的创建生命周期函数
-			let hotelNo=this.$route.params.hotelId;
-			this.getHotel(hotelNo);
+			let no=this.$route.params.hotelId;
+			this.getHotel(no);
 			
 		},
 		methods:{
-			getHotel(hotelId){
+			getHotel(no){
 				
-				axios.get("http://localhost:8200/hotel/get?hotelId="+hotelId).then(result=>{
+				this.axiosJSON.get("/hotel/get?no="+no).then(result=>{
 					this.hotel=result.data.result;
 				});
 			},
 			modify(){
-				axios.post("http://localhost:8200/hotel/modify",this.hotel).then(result=>{
+				this.axiosJSON.post("/hotel/modify",this.hotel).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/hotel/list"); //编程方式跳转到酒店列表组件

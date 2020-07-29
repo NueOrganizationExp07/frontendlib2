@@ -42,7 +42,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default {
 		name:"CustomerAdd",
 		data(){
@@ -58,7 +58,7 @@
 		},
 		methods:{
 			add(){
-				axios.post("http://localhost:8200/customer/add",this.customer).then(result=>{
+				this.axiosJSON.post("/customer/add",this.customer).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/customer/list"); //编程方式跳转到入住人员列表组件

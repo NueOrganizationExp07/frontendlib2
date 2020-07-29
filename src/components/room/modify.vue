@@ -36,7 +36,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	//房间修改组件
 	export default {
 		name:"RoomModify",
@@ -51,19 +51,19 @@
 			};
 		},
 		created(){ //组件的创建生命周期函数
-			let roomNo=this.$route.params.roomId;
-			this.getRoom(roomNo);
+			let no=this.$route.params.roomId;
+			this.getRoom(no);
 			
 		},
 		methods:{
-			getRoom(roomId){
+			getRoom(no){
 				
-				axios.get("http://localhost:8200/room/get?roomId="+roomId).then(result=>{
+				this.axiosJSON.get("/room/get?no="+no).then(result=>{
 					this.room=result.data.result;
 				});
 			},
 			modify(){
-				axios.post("http://localhost:8200/room/modify",this.room).then(result=>{
+				this.axiosJSON.post("/room/modify",this.room).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/room/list"); //编程方式跳转到房间列表组件

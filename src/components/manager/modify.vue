@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	//酒店负责人修改组件
 	export default {
 		name:"ManagerModify",
@@ -44,19 +44,19 @@
 			};
 		},
 		created(){ //组件的创建生命周期函数
-			let managerNo=this.$route.params.managerId;
-			this.getManager(managerNo);
+			let no=this.$route.params.managerId;
+			this.getManager(no);
 			
 		},
 		methods:{
-			getManager(managerId){
+			getManager(no){
 				
-				axios.get("http://localhost:8200/manager/get?managerId="+managerId).then(result=>{
+				this.axiosJSON.get("/manager/get?no="+no).then(result=>{
 					this.manager=result.data.result;
 				});
 			},
 			modify(){
-				axios.post("http://localhost:8200/manager/modify",this.manager).then(result=>{
+				 this.axiosJSON.post("/manager/modify",this.manager).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/manager/list"); //编程方式跳转到酒店负责人列表组件

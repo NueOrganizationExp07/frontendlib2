@@ -38,7 +38,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default {
 		name:"RoomAdd",
 		data(){
@@ -46,14 +46,14 @@
 				room:{
 					roomId:"",
 					roomType:"",
-					roomPrice:0,
-					hotelId:""
+					roomPrice:"",
+					hotelId:"",
 				}
 			};
 		},
 		methods:{
 			add(){
-				axios.post("http://localhost:8200/room/add",this.room).then(result=>{
+				this.axiosJSON.post("/room/add",this.room).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/room/list"); //编程方式跳转到房间列表组件

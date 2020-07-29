@@ -6,23 +6,23 @@
 </div>
 <div class="box-body">
 	<form  method="post" >
-	  <div class="form-group">
-		<label for="exampleInputEmail1">酒店负责人编号</label>
-		<span></span>
-		
-	  </div>
-	  <div class="form-group">
-		<label for="exampleInputPassword1">酒店负责人姓名</label>
-		<span></span>
-	  </div>
-	  
-	  <div class="form-group">
-	  		<label for="exampleInputPassword1">酒店负责人电话号码</label>
-	  		<span></span>
-	  </div>
-	  
-	  
-	  <router-link to="/manager/list" class="btn btn-default">返回</router-link>
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">酒店负责人编号</th>
+	      <th scope="col">酒店负责人姓名</th>
+	      <th scope="col">酒店负责人联系电话</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>{{manager.managerId}}</td>
+	      <td>{{manager.managerName}}</td>
+	      <td>{{manager.phoneNumber}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+	<router-link to="/manager/list" class="btn btn-default">返回</router-link>
 	</form>
 
 </div>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-	//酒店负责人查看组件
+	//部门查看组件
 	export default {
 		name:"ManagerView",
 		data(){
@@ -40,12 +40,21 @@
 				manager:{}
 			};
 		},
+		props:{
+			managerId:{required:true}
+		},
 		created(){ //组件的创建生命周期函数
-			
+			this.getManager();
 		},
 		methods:{
 			getManager(){
-				
+				this.axiosJSON.get("/manager/get",{
+					params:{
+						no:this.managerId					
+					}
+				}).then(result=>{
+					this.manager=result.data.result;
+				});
 			}
 		}
 	}

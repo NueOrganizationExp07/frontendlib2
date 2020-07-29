@@ -32,21 +32,21 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default {
 		name:"ManagerAdd",
 		data(){
 			return {
 				manager:{
-					managerId:0,
+					managerId:"",
 					managerName:"",
-					phoneNumber:""
+					phoneNumber:"",
 				}
 			};
 		},
 		methods:{
 			add(){
-				axios.post("http://localhost:8200/manager/add",this.manager).then(result=>{
+				this.axiosJSON.post("/manager/add",this.manager).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/manager/list"); //编程方式跳转到部门列表组件

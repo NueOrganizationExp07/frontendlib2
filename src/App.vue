@@ -7,7 +7,7 @@
        <!-- mini logo for sidebar mini 50x50 pixels -->
        <span class="logo-mini"><b></b></span>
        <!-- logo for regular state and mobile devices -->
-       <span class="logo-lg"><b>酒店管理系统</b></span>
+       <span class="logo-lg"><b>连锁酒店管理系统</b></span>
      </a>
      <!-- Header Navbar: style can be found in header.less -->
      <nav class="navbar navbar-static-top">
@@ -56,6 +56,17 @@
 		     </span>
 		   </router-link>           
 		 </li>
+		 
+		 
+		 
+		 <li class="treeview">
+		    <router-link to="/employee">
+		     <i class="fa fa-dashboard"></i> <span>酒店员工管理</span>
+		     <span class="pull-right-container">
+		       <i class="fa fa-angle-left pull-right"></i>
+		     </span>
+		   </router-link>           
+		 </li>
 		 <li class="treeview">
 		   <router-link to="/hotel">
 		     <i class="fa fa-dashboard"></i> <span>酒店管理</span>
@@ -89,11 +100,9 @@
      <section class="content-header">
        <h1>
         系统主页
-         <small>子功能</small>
        </h1>
        <ol class="breadcrumb">
          <li><router-link to="/"><i class="fa fa-dashboard"></i>首页</router-link></li>
-         
        </ol>
      </section>
    

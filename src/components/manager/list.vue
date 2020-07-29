@@ -21,11 +21,26 @@
 					<td>
 					  <router-link v-bind:to="'/manager/modify/'+dm.managerId" class="btn btn-default">修改</router-link>
 					  <a href="#" v-on:click="deleteManager(dm.managerId)"  class="btn btn-danger">删除</a> 
-					  <router-link to="/manager/view" class="btn btn-default">查看</router-link>
+					  <router-link v-bind:to="{name:'managerview', params: {managerId:dm.managerId}}" class="btn btn-default">查看</router-link>
 					</td>
 				</tr>
 			  </tbody>
 			</table>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+			第<span></span>{{this.page}}<span></span>页
+			</div>
+			<div class="col-md-6 text-right">
+				<nav>
+				  <ul class="pagination justify-content-end">
+					<li class="page-item"><a class="page-link" href="#">首页</a></li>
+					<li class="page-item"><a class="page-link" href="#" >上页</a></li>
+					<li class="page-item"><a class="page-link" href="#" >下页</a></li>
+					<li class="page-item"><a class="page-link" href="#" >末页</a></li>
+				  </ul>
+				</nav>
+			</div>
 		</div>
 		<!-- /.box-body -->
 		<router-link to="/manager/add" class="btn btn-default">增加酒店负责人</router-link>
@@ -34,7 +49,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default {
 		name:"ManagerList",
 		data(){
@@ -51,7 +66,7 @@
 		},
 		methods:{
 			getList(){
-				axios.get("http://localhost:8200/manager/list/all/page",{
+				this.axiosJSON.get("/manager/list/all/page",{
 					params:{
 						rows:this.rows,
 						page:this.page
@@ -65,7 +80,7 @@
 			deleteManager(managerId){
 				let checkresult=confirm("您确认要删除此酒店负责人么");
 				if(checkresult){
-					axios.post("http://localhost:8200/manager/delete",{managerId:managerId}).then(result=>{
+					this.axiosJSON.post("/manager/delete",{managerId:managerId}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
 							this.getList();
@@ -74,8 +89,34 @@
 				}
 				
 				
+			},
+			toFirst(){
+				this.page=1;
+				this.getList();
+			},
+			toNext(){
+				if(this.page<this.pageCount){
+					this.page++;
+					this.getList();
+				}
+			},
+			toPreview(){
+				if(this.page>1){
+					this.page--;
+					this.getList();
+				}
+			},
+			toLast(){
+				this.page=this.pageCount;
+				this.getList();
 			}
 		}
+		
+
+		
+		
+		
+		
 	}
 </script>
 

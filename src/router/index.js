@@ -34,6 +34,12 @@ import CustomerModify  from "./../components/customer/modify.vue";
 import CustomerView  from "./../components/customer/view.vue";
 
 
+//引入员工的组件
+import EmployeeMain  from "./../components/employee/main.vue";
+import EmployeeList  from "./../components/employee/list.vue";
+import EmployeeAdd  from "./../components/employee/add.vue";
+import EmployeeModify  from "./../components/employee/modify.vue";
+import EmployeeView  from "./../components/employee/view.vue";
 
 
 Vue.use(VueRouter)
@@ -45,7 +51,7 @@ const routes = [
 		{path:"list",name:"managerlist",component:ManagerList},
 		{path:"add",name:"manageradd",component:ManagerAdd},
 		{path:"modify/:managerId",name:"managermodify",component:ManagerModify},
-		{path:"view/:managerId",name:"managerview",component:ManagerView},
+		{path:"view/:managerId",name:"managerview",component:ManagerView,props:true},
 		{path:"", redirect: "list" }
 	]},
 	
@@ -55,7 +61,7 @@ const routes = [
 		{path:"list",name:"hotellist",component:HotelList},
 		{path:"add",name:"hoteladd",component:HotelAdd},
 		{path:"modify/:hotelId",name:"hotelmodify",component:HotelModify},
-		{path:"view/:hotelId",name:"hotelview",component:HotelView},
+		{path:"view/:hotelId",name:"hotelview",component:HotelView,props:true},
 		{path:"", redirect: "list" }
 	]},
 	
@@ -64,7 +70,7 @@ const routes = [
 		{path:"list",name:"roomlist",component:RoomList},
 		{path:"add",name:"roomadd",component:RoomAdd},
 		{path:"modify/:roomId",name:"roommodify",component:RoomModify},
-		{path:"view/:roomId",name:"roomview",component:RoomView},
+		{path:"view/:roomId",name:"roomview",component:RoomView,props:true},
 		{path:"", redirect: "list" }
 	]},
 	
@@ -73,11 +79,17 @@ const routes = [
 		{path:"list",name:"customerlist",component:CustomerList},
 		{path:"add",name:"customeradd",component:CustomerAdd},
 		{path:"modify/:customerId",name:"customermodify",component:CustomerModify},
-		{path:"view/:customerId",name:"customerview",component:CustomerView},
+		{path:"view/:customerId",name:"customerview",component:CustomerView,props:true},
 		{path:"", redirect: "list" }
 	]},
 	
-	
+	{path:"/employee",name:"employeemain", component:EmployeeMain,children:[
+		{path:"list",name:"employeelist",component:EmployeeList},
+		{path:"add",name:"employeeadd",component:EmployeeAdd},
+		{path:"modify/:employeeId",name:"employeemodify",component:EmployeeModify},
+		{path:"view/:employeeId",name:"employeeview",component:EmployeeView,props:true},
+		{path:"", redirect: "list" }
+	]},
 
 ]
 

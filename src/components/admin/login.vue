@@ -1,7 +1,7 @@
 <template>
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>东软OA系统</b></a>
+    <a href="../../index2.html"><b>连锁酒店管理系统</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

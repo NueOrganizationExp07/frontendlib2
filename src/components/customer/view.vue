@@ -6,32 +6,27 @@
 </div>
 <div class="box-body">
 	<form  method="post" >
-	  <div class="form-group">
-		<label for="exampleInputPassword1">入住人员编码</label>
-		<span></span>
-
-	  </div>
-	  <div class="form-group">
-		<label for="exampleInputPassword1">入住人员姓名</label>
-		<span></span>
-	  </div>
-	  <div class="form-group">
-	  		<label for="exampleInputPassword1">入住房间号码</label>
-	  		<span></span>
-	  </div>
-	  <div class="form-group">
-	  		<label for="exampleInputPassword1">入住日期</label>
-	  		<span></span>
-	  </div>
-	  <div class="form-group">
-	  		<label for="exampleInputPassword1">退房日期</label>
-	  		<span></span>
-	  </div>
-	  
-	  
-	  
-	  
-	  <router-link to="/customer/list" class="btn btn-default">返回</router-link>
+	  <table class="table">
+	    <thead>
+	      <tr>
+	        <th scope="col">入住人员编号</th>
+	        <th scope="col">入住人员姓名</th>
+	        <th scope="col">入住房间编号</th>
+			<th scope="col">入住日期</th>
+			<th scope="col">退房日期</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>{{customer.customerId}}</td>
+	        <td>{{customer.customerName}}</td>
+	        <td>{{customer.roomId}}</td>
+			<td>{{customer.checkInDate}}</td>
+			<td>{{customer.checkOutDate}}</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	 <router-link to="/customer/list" class="btn btn-default">返回</router-link>
 	</form>
 
 </div>
@@ -41,7 +36,7 @@
 </template>
 
 <script>
-	//入住人员查看组件
+	//部门查看组件
 	export default {
 		name:"CustomerView",
 		data(){
@@ -49,12 +44,21 @@
 				customer:{}
 			};
 		},
+		props:{
+			customerId:{required:true}
+		},
 		created(){ //组件的创建生命周期函数
-			
+			this.getCustomer();
 		},
 		methods:{
 			getCustomer(){
-				
+				this.axiosJSON.get("/customer/get",{
+					params:{
+						no:this.customerId				
+					}
+				}).then(result=>{
+					this.customer=result.data.result;
+				});
 			}
 		}
 	}

@@ -1,29 +1,34 @@
 <template>
 	<div class="box">
 		<div class="box-header with-border">
-		  <h3 class="box-title">房间管理</h3>	          
+		  <h3 class="box-title">员工管理</h3>	          
 		</div>
 		<div class="box-body">
 			<table class="table table-bordered">
 			  <thead>
 				<tr>
-				  <th scope="col">房间号码</th>
-				  <th scope="col">房间类型</th>
-				  <th scope="col">房间价格</th>
+				  <th scope="col">员工编号</th>
+				  <th scope="col">员工姓名</th>
+				  <th scope="col">员工年龄</th>
+				  <th scope="col">员工工资</th>
 				  <th scope="col">酒店编号</th>
-				  <th scope="col">操作</th>
+				  <th scope="col">工作部门</th>
+				  <th scope="col">联系电话</th>
 				</tr>
 			  </thead>
 			  <tbody>
-				<tr v-for="dm in roomList" v-bind:key="dm.roomId">
-				  <td>{{dm.roomId}}</td>
-				  <td>{{dm.roomType}}</td>
-				  <td>{{dm.roomPrice}}</td>
+				<tr v-for="dm in employeeList" v-bind:key="dm.employeeId">
+				  <td>{{dm.employeeId}}</td>
+				  <td>{{dm.employeeName}}</td>
+				  <td>{{dm.employeeAge}}</td>
+				  <td>{{dm.employeeSalary}}</td>
 				  <td>{{dm.hotelId}}</td>
+				  <td>{{dm.department}}</td>
+				  <td>{{dm.phoneNumber}}</td>
 					<td>
-					  <router-link v-bind:to="'/room/modify/'+dm.roomId" class="btn btn-default">修改</router-link>
-					  <a href="#" v-on:click="deleteRoom(dm.roomId)"  class="btn btn-danger">删除</a> 
-					  <router-link v-bind:to="{name:'roomview', params: {roomId:dm.roomId}}" class="btn btn-default">查看</router-link>
+					  <router-link v-bind:to="'/employee/modify/'+dm.employeeId" class="btn btn-default">修改</router-link>
+					  <a href="#" v-on:click="deleteEmployee(dm.employeeId)"  class="btn btn-danger">删除</a> 
+					  <router-link v-bind:to="{name:'employeeview', params: {employeeId:dm.employeeId}}" class="btn btn-default">查看</router-link>
 					</td>
 				</tr>
 			  </tbody>
@@ -45,7 +50,7 @@
 			</div>
 		</div>
 		<!-- /.box-body -->
-		<router-link to="/room/add" class="btn btn-default">增加房间</router-link>
+		<router-link to="/employee/add" class="btn btn-default">增加员工</router-link>
 	</div>
 	
 </template>
@@ -53,10 +58,10 @@
 <script>
 	//import axios from "axios";
 	export default {
-		name:"RoomList",
+		name:"EmployeeList",
 		data(){
 			return {
-				roomList:[],
+				employeeList:[],
 				page:1,
 				rows:10,
 				count:0,
@@ -68,27 +73,29 @@
 		},
 		methods:{
 			getList(){
-				this.axiosJSON.get("/room/list/all/page",{
+				this.axiosJSON.get("/employee/list/all/page",{
 					params:{
 						rows:this.rows,
 						page:this.page
 					}
 				}).then(result=>{
-					this.roomList=result.data.list;
+					this.employeeList=result.data.list;
 					this.count=result.data.count;
 					this.pageCount=result.data.pageCount;
 				});
 			},
-			deleteRoom(roomId){
-				let checkresult=confirm("您确认要删除此房间么");
+			deleteEmployee(employeeId){
+				let checkresult=confirm("您确认要删除此员工么");
 				if(checkresult){
-					this.axiosJSON.post("/room/delete",{roomId:roomId}).then(result=>{
+					this.axiosJSON.post("/employee/delete",{employeeId:employeeId}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
 							this.getList();
 						}
 					});
 				}
+				
+				
 			},
 			toFirst(){
 				this.page=1;

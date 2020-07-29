@@ -38,7 +38,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	//入住人员修改组件
 	export default {
 		name:"CustomerModify",
@@ -54,19 +54,18 @@
 			};
 		},
 		created(){ //组件的创建生命周期函数
-			let customerNo=this.$route.params.customerId;
-			this.getCustomer(customerNo);
+			let no=this.$route.params.customerId;
+			this.getCustomer(no);
 			
 		},
 		methods:{
-			getCustomer(customerId){
-				
-				axios.get("http://localhost:8200/customer/get?customerId="+customerId).then(result=>{
+			getCustomer(no){
+				this.axiosJSON.get("/customer/get?no="+no).then(result=>{
 					this.customer=result.data.result;
 				});
 			},
 			modify(){
-				axios.post("http://localhost:8200/customer/modify",this.customer).then(result=>{
+				this.axiosJSON.post("/customer/modify",this.customer).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/customer/list"); //编程方式跳转到入住人员列表组件

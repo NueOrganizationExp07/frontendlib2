@@ -33,7 +33,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default {
 		name:"HotelAdd",
 		data(){
@@ -41,13 +41,13 @@
 				hotel:{
 					hotelId:"",
 					hotelName:"",
-					managerId:0
+					managerId:"",
 				}
 			};
 		},
 		methods:{
 			add(){
-				axios.post("http://localhost:8200/hotel/add",this.hotel).then(result=>{
+				this.axiosJSON.post("/hotel/add",this.hotel).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/hotel/list"); //编程方式跳转到酒店列表组件
