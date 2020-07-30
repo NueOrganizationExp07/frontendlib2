@@ -29,7 +29,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-			第<span></span>{{this.page}}<span></span>页
+			个数:{{this.count}} 页数:<span></span>{{this.page}}<span></span>/<span></span>{{this.pageCount}}
 			</div>
 			<div class="col-md-6 text-right">
 				<nav>

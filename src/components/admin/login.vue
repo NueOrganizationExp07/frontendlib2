@@ -7,13 +7,13 @@
   <div class="login-box-body">
     <p class="login-box-msg">请输入登录信息</p>
 
-    <form action="userlogin.do" method="post">
+    <form  method="post" v-on:submit.prevent="userlogin()">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" required name="userid" placeholder="账号">
+        <input type="text" class="form-control" required v-model="userid" placeholder="账号">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="password" required class="form-control" placeholder="密码">
+        <input type="password" v-model="password" required class="form-control" placeholder="密码">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -39,8 +39,36 @@
 		data(){
 			return {
 				userid:"",
-				password:""
+				password:""				
 			};
+		},
+		created(){
+			this.$store.dispatch("logout");
+			//调用后台REST API logout，清除Session中的存储登录信息。
+			this.axiosJSON.get("/user/logout").then(result=>{
+				
+			})
+		},
+		methods:{
+			userlogin(){  //管理员登录处理
+				//验证账号和密码是否合法
+				this.axiosJSON.get("/user/validate/"+this.userid+"/"+this.password).then(result=>{
+					if(result.data.stringResult=="Y"){
+						//存储登录用户的对象 到Vuex的store中
+						this.$store.dispatch("loginUser",result.data.result);
+						this.$router.push("/");
+						//window.localStorage.setItem("","");
+						
+					}
+					else{
+						this.userid="";
+						this.password="";
+						alert(result.data.message);
+					}
+					
+				});
+				
+			}
 		}
 	}
 </script>

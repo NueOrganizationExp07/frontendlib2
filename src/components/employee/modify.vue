@@ -2,7 +2,7 @@
 <!-- Default box -->
 <div class="box">
 <div class="box-header with-border">
-  <h3 class="box-title">修改员工年龄</h3>
+  <h3 class="box-title">修改员工</h3>
 </div>
 <div class="box-body">
   <form  method="post" v-on:submit.prevent="modify()">
